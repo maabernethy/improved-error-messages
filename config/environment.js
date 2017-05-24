@@ -2,6 +2,15 @@
 
 module.exports = function(environment) {
   var ENV = {
+    materializeDefaults: {
+      modalIsFooterFixed:  false,
+      buttonIconPosition:  'left',
+      loaderSize:          'big',
+      loaderMode:          'indeterminate',
+      modalContainerId:    'materialize-modal-root-element',
+      dropdownInDuration:  300,
+      dropdownOutDuration: 300
+    },
     modulePrefix: 'improved-error-messages',
     environment: environment,
     rootURL: '/',

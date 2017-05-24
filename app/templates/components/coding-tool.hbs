@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col s6">
+    {{my-ivy-codemirror
+      options=(hash
+        lineNumbers=lineNumbers
+        lineWrapping=lineWrapping
+        mode=mode
+        keyMap=keyMap
+        readOnly=readOnly
+        smartIndent=smartIndent
+        styleActiveLine=styleActiveLine
+        theme=theme
+      )
+      highlightLine=highlightLine
+      shouldHighlightLine=shouldHighlightLine
+      value=source
+      valueUpdated=(action (mut source))
+    }}
+
+    {{log highlightLine}}
+
+    {{md-btn-submit
+      action="sendRequest"
+      icon='mdi-content-send'
+      iconPosition='right'
+      text='Submit'}}
+  </div>
+
+  <div class="col s6">
+    {{#if showMessage}}
+      <h4>{{result}}</h4>
+      {{#md-card-collapsible}}
+        {{#each errors as |error|}}
+          {{#my-md-collapsible class="hoverable"
+              title=error.title
+              mouseOverAction=(action 'highlightCodeLine')
+              mouseLeaveAction=(action 'removeHighlightCodeLine')
+              errorLineNumber=error.line}}
+
+              <div class="error-message">{{error.message}}</div>
+          {{/my-md-collapsible}}
+        {{/each}}
+      {{/md-card-collapsible}}
+    {{/if}}
+  </div>
+</div>

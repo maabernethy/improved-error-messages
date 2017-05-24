@@ -1,0 +1,9 @@
+// Fix for Roboto font path
+$roboto-font-path: '../assets/';
+
+@import 'materialize';
+@import 'ember-cli-materialize';
+
+.error-message {
+  white-space: pre;
+}
