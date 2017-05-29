@@ -17,8 +17,6 @@
       valueUpdated=(action (mut source))
     }}
 
-    {{log highlightLine}}
-
     {{md-btn-submit
       action="sendRequest"
       icon='mdi-content-send'
@@ -28,7 +26,7 @@
 
   <div class="col s6">
     {{#if showMessage}}
-      <h4>{{result}}</h4>
+      <h4 style="color: #D0011B;">{{result}}</h4>
       {{#md-card-collapsible}}
         {{#each errors as |error|}}
           {{#my-md-collapsible class="hoverable"

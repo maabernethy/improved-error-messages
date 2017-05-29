@@ -12,7 +12,7 @@ export default IvyCodemirrorComponent.extend({
     if (get(this, 'shouldHighlightLine')) {
       let lineNumString = get(this, 'highlightLine');
       let lineNum = parseInt(lineNumString);
-      codeMirror.markText({ line: lineNum, ch: 0 }, { line: lineNum + 1, ch: 0}, {css: "color: #fe3"});
+      codeMirror.markText({ line: lineNum, ch: 0 }, { line: lineNum + 1, ch: 0}, {css: "background-color: #F6A623"});
     } else {
       let markers = codeMirror.getAllMarks();
       markers.forEach(marker => marker.clear());
