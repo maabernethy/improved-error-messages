@@ -6,7 +6,6 @@ let { get, isPresent } = Ember;
 export default IvyCodemirrorComponent.extend({
   didUpdateAttrs() {
     this._super(...arguments);
-    debugger;
 
     let codeMirror = this._codeMirror;
     if (get(this, 'shouldHighlightLine')) {

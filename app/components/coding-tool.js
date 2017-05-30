@@ -66,13 +66,13 @@ export default Ember.Component.extend({
   errors: computed('errorMessage', function() {
     let errorMessage = get(this, 'errorMessage');
     var entireRegex = /main.c:([0-9]*?):([0-9]*?): error:+([\s\S]*?)(\^)/g;
-    let numRegex = /.:([0-9]):./g;
+    let numRegex = /.:([0-9]*):./g;
     let myRegex = /error:+([\s\S]*?)(?=\n)/g;
     let errorsArray = errorMessage.match(entireRegex);
     let errors = errorsArray.map((errorString) => {
-      let lineNumber = errorString.match(numRegex)[0].split(":")[2];
+      let lineNumber = errorString.match(numRegex)[0].split(":")[1];
       let title = errorString.match(myRegex);
-      return { line: lineNumber, message: errorString, title: `${lineNumber}: ${title}`};
+      return { line: parseInt(lineNumber) - 1, message: errorString, title: `${lineNumber}: ${title}`};
     });
 
     return errors;
