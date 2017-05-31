@@ -1,0 +1,8 @@
+<div class="collapsible-header {{if active 'active'}}" {{action "headerClicked"}}>
+  <span class="line-number">{{errorLineNumber}}</span>
+  <span class="error-summary">{{title}}</span>
+</div>
+
+<div class="collapsible-body">
+    <p>{{yield}}</p>
+</div>

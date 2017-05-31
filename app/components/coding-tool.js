@@ -72,7 +72,7 @@ export default Ember.Component.extend({
     let errors = errorsArray.map((errorString) => {
       let lineNumber = errorString.match(numRegex)[0].split(":")[1];
       let title = errorString.match(myRegex);
-      return { line: parseInt(lineNumber) - 1, message: errorString, title: `${lineNumber}: ${title}`};
+      return { line: parseInt(lineNumber), message: errorString, title: title};
     });
 
     return errors;

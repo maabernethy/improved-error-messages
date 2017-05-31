@@ -7,3 +7,26 @@ $roboto-font-path: '../assets/';
 .error-message {
   white-space: pre;
 }
+
+.collapsible-header {
+  overflow: hidden;
+  position: relative;
+}
+
+.collapsible-header > .line-number {
+  color: white;
+  text-align: center;
+  background: black;
+  height: 100%;
+  width: 10%;
+  position: absolute;
+  left: 0;
+}
+
+.collapsible-header > .error-summary {
+  height: 100%;
+  width: 87%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
