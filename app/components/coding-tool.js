@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-let { get, set, computed, isPresent } = Ember;
+let { get, set, computed, isPresent, isEmpty } = Ember;
 
 export default Ember.Component.extend({
   ajax: Ember.inject.service(),
@@ -19,10 +19,18 @@ export default Ember.Component.extend({
   filename: 'main.c',
   showMessage: false,
 
+  forceHoverErrorLines: [],
+
   setHoverable() {
     Ember.run.schedule('afterRender', () => {
       Ember.$('.collapsible-header').addClass('hoverable');
     });
+  },
+
+  click(e) {
+    if (isEmpty(Ember.$('.CodeMirror').find($(e.target)))) {
+      set(this, 'forceHoverErrorLines', []);
+    }
   },
 
   processReturnResult(response) {
@@ -65,21 +73,21 @@ export default Ember.Component.extend({
 
   errorLines: computed('errors.[]', 'errors.@each.line', function() {
     let errors = get(this, 'errors');
-    debugger;
     return errors.mapBy('line');
   }),
 
-  errors: computed('errorMessage', function() {
+  errors: computed('errorMessage', 'forceHoverErrorLines.[]', function() {
     let errorMessage = get(this, 'errorMessage');
     if (isPresent(errorMessage)) {
       var entireRegex = /main.c:([0-9]*?):([0-9]*?): error:+([\s\S]*?)(\^)/g;
       let numRegex = /.:([0-9]*):./g;
       let myRegex = /error:+([\s\S]*?)(?=\n)/g;
       let errorsArray = errorMessage.match(entireRegex);
+      let forceHoverErrorLines = get(this, 'forceHoverErrorLines');
       let errors = errorsArray.map((errorString) => {
         let lineNumber = errorString.match(numRegex)[0].split(":")[1];
         let title = errorString.match(myRegex);
-        return { line: parseInt(lineNumber), message: errorString, title: title};
+        return { line: parseInt(lineNumber), message: errorString, title: title, forceHover: forceHoverErrorLines.includes(parseInt(lineNumber))};
       });
 
       return errors;
@@ -89,6 +97,10 @@ export default Ember.Component.extend({
   }),
 
   actions: {
+    highlightError(errorLines) {
+      set(this, 'forceHoverErrorLines', errorLines);
+    },
+
     highlightCodeLine(lineNumber) {
       set(this, 'highlightLine', lineNumber);
       set(this, 'hoveringOnError', true);

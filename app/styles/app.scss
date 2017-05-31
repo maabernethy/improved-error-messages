@@ -4,6 +4,10 @@ $roboto-font-path: '../assets/';
 @import 'materialize';
 @import 'ember-cli-materialize';
 
+html, .ember-application, .ember-view {
+  height: 100%;
+}
+
 .error-message {
   white-space: pre;
 }
@@ -35,14 +39,22 @@ $roboto-font-path: '../assets/';
   background-color: #F6FCFF;
   border: 1px solid #DBF3FF;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .hover-highlight {
   background-color: #FFCC7F;
   border: 1px solid #FFBC57;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .compiler-errors {
   color: #D0011B;
+}
+
+.force-hover {
+  transition: box-shadow .25s;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 2px solid #FFBC57;
 }

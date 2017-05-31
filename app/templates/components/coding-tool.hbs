@@ -16,6 +16,7 @@
       hoveringOnError=hoveringOnError
       value=source
       valueUpdated=(action (mut source))
+      highlightError=(action 'highlightError')
     }}
 
     {{md-btn-submit
@@ -34,7 +35,8 @@
               title=error.title
               mouseOverAction=(action 'highlightCodeLine')
               mouseLeaveAction=(action 'removeHighlightCodeLine')
-              errorLineNumber=error.line}}
+              errorLineNumber=error.line
+              forceHover=error.forceHover}}
 
               <div class="error-message">{{error.message}}</div>
           {{/my-md-collapsible}}
