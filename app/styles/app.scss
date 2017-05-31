@@ -30,3 +30,19 @@ $roboto-font-path: '../assets/';
   right: 0;
   top: 0;
 }
+
+.basic-highlight {
+  background-color: #F6FCFF;
+  border: 1px solid #DBF3FF;
+  border-radius: 10px;
+}
+
+.hover-highlight {
+  background-color: #FFCC7F;
+  border: 1px solid #FFBC57;
+  border-radius: 10px;
+}
+
+.compiler-errors {
+  color: #D0011B;
+}

@@ -11,8 +11,9 @@
         styleActiveLine=styleActiveLine
         theme=theme
       )
+      errorLines=errorLines
       highlightLine=highlightLine
-      shouldHighlightLine=shouldHighlightLine
+      hoveringOnError=hoveringOnError
       value=source
       valueUpdated=(action (mut source))
     }}
@@ -26,7 +27,7 @@
 
   <div class="col s6">
     {{#if showMessage}}
-      <h4 style="color: #D0011B;">{{result}}</h4>
+      <h4 class="compiler-errors">{{result}}</h4>
       {{#md-card-collapsible}}
         {{#each errors as |error|}}
           {{#my-md-collapsible class="hoverable"

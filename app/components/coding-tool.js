@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-let { get, set, computed } = Ember;
+let { get, set, computed, isPresent } = Ember;
 
 export default Ember.Component.extend({
   ajax: Ember.inject.service(),
@@ -63,30 +63,40 @@ export default Ember.Component.extend({
     this.setHoverable();
   },
 
+  errorLines: computed('errors.[]', 'errors.@each.line', function() {
+    let errors = get(this, 'errors');
+    debugger;
+    return errors.mapBy('line');
+  }),
+
   errors: computed('errorMessage', function() {
     let errorMessage = get(this, 'errorMessage');
-    var entireRegex = /main.c:([0-9]*?):([0-9]*?): error:+([\s\S]*?)(\^)/g;
-    let numRegex = /.:([0-9]*):./g;
-    let myRegex = /error:+([\s\S]*?)(?=\n)/g;
-    let errorsArray = errorMessage.match(entireRegex);
-    let errors = errorsArray.map((errorString) => {
-      let lineNumber = errorString.match(numRegex)[0].split(":")[1];
-      let title = errorString.match(myRegex);
-      return { line: parseInt(lineNumber), message: errorString, title: title};
-    });
+    if (isPresent(errorMessage)) {
+      var entireRegex = /main.c:([0-9]*?):([0-9]*?): error:+([\s\S]*?)(\^)/g;
+      let numRegex = /.:([0-9]*):./g;
+      let myRegex = /error:+([\s\S]*?)(?=\n)/g;
+      let errorsArray = errorMessage.match(entireRegex);
+      let errors = errorsArray.map((errorString) => {
+        let lineNumber = errorString.match(numRegex)[0].split(":")[1];
+        let title = errorString.match(myRegex);
+        return { line: parseInt(lineNumber), message: errorString, title: title};
+      });
 
-    return errors;
+      return errors;
+    } else {
+      return [];
+    }
   }),
 
   actions: {
     highlightCodeLine(lineNumber) {
       set(this, 'highlightLine', lineNumber);
-      set(this, 'shouldHighlightLine', true);
+      set(this, 'hoveringOnError', true);
     },
 
     removeHighlightCodeLine() {
       set(this, 'highlightLine', null);
-      set(this, 'shouldHighlightLine', false);
+      set(this, 'hoveringOnError', false);
     },
 
     sendRequest() {
