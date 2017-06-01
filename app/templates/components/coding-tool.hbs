@@ -32,13 +32,13 @@
       {{#md-card-collapsible}}
         {{#each errors as |error|}}
           {{#my-md-collapsible class="hoverable"
-              title=error.title
               mouseOverAction=(action 'highlightCodeLine')
               mouseLeaveAction=(action 'removeHighlightCodeLine')
+              title=error.title
               errorLineNumber=error.line
               forceHover=error.forceHover}}
 
-              <div class="error-message">{{error.message}}</div>
+              {{component (concat "error-bodies/" error.component) error=error}}
           {{/my-md-collapsible}}
         {{/each}}
       {{/md-card-collapsible}}
