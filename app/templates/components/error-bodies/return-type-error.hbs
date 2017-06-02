@@ -1,1 +1,15 @@
-Hello!
+<p>{{firstMessage}}</p>
+{{my-ivy-codemirror
+  value=typeCode
+  codeSnippet=true
+  options=(hash lineWrapping=true
+                readOnly=true)}}
+<p> OR </p>
+
+{{my-ivy-codemirror
+  value=voidCode
+  codeSnippet=true
+  options=(hash lineWrapping=true
+                readOnly=true)}}
+
+<p>{{{secondMessage}}}</p>

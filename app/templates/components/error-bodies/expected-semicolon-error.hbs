@@ -1,1 +1,10 @@
-Hello!
+{{#if showCorrectCode}}
+  {{my-ivy-codemirror
+    value=correctCode
+    codeSnippet=true
+    options=(hash lineWrapping=true
+                  readOnly=true
+                  autorefresh=true)}}
+{{else}}
+  {{error.entireError}}
+{{/if}}

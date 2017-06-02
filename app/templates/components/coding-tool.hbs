@@ -27,6 +27,10 @@
   </div>
 
   <div class="col s6">
+    {{#if showNoCompilerErrorsMessage}}
+      <h4 class="no-compiler-errors">COMPILES!</h4>
+    {{/if}}
+
     {{#if showMessage}}
       <h4 class="compiler-errors">{{result}}</h4>
       {{#md-card-collapsible}}
@@ -38,7 +42,7 @@
               errorLineNumber=error.line
               forceHover=error.forceHover}}
 
-              {{component (concat "error-bodies/" error.component) error=error}}
+              {{component (concat "error-bodies/" error.component) source=source error=error}}
           {{/my-md-collapsible}}
         {{/each}}
       {{/md-card-collapsible}}

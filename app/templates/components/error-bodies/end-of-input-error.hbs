@@ -1,1 +1,15 @@
-Hello!
+{{#if showCorrectCode}}
+  <p>You must add a closing “}” at the end of your file:</p>
+  {{my-ivy-codemirror
+    value=correctCode
+    codeSnippet=true
+    options=(hash lineWrapping=true
+                  readOnly=true)}}
+{{else}}
+  <p>
+    This kind of error can typically occurs because you forgot to close something.
+    The compiler only realizes the problem at the end of the file, so the line number
+    might not be helpful in this case.
+  </p>
+  <p><b>TIP</b>: Try checking whether you have any unbalanced “}” or “)” within your function</p>
+{{/if}}
