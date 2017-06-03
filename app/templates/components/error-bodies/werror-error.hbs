@@ -1,1 +1,26 @@
-Hello!
+{{#if isAllCode}}
+  <p>{{firstMessageAll}}</p>
+  {{my-ivy-codemirror
+    value=allCode
+    codeSnippet=true
+    options=(hash lineWrapping=true
+                  readOnly=true)}}
+  <p>{{{secondMessageFunction}}}</p>
+  <p>{{{tipAll}}}</p>
+{{else if isFunctionCode}}
+  <p>{{firstMessageFunction}}</p>
+  {{my-ivy-codemirror
+    value=functionTypeCode
+    codeSnippet=true
+    options=(hash lineWrapping=true
+                  readOnly=true)}}
+  <p>{{{secondMessageFunction}}}</p>
+{{else}}
+  <p>{{firstMessageParam}}</p>
+  {{my-ivy-codemirror
+    value=paramTypeCode
+    codeSnippet=true
+    options=(hash lineWrapping=true
+                  readOnly=true)}}
+  <p>{{{secondMessageParam}}}</p>
+{{/if}}
