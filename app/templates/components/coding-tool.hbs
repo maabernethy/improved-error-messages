@@ -33,19 +33,37 @@
 
     {{#if showMessage}}
       <h4 class="compiler-errors">{{result}}</h4>
-      {{#md-card-collapsible}}
-        {{#each errors as |error|}}
+      {{#if firstError}}
+        {{#md-card-collapsible}}
           {{#my-md-collapsible class="hoverable"
               mouseOverAction=(action 'highlightCodeLine')
               mouseLeaveAction=(action 'removeHighlightCodeLine')
-              title=error.title
-              errorLineNumber=error.line
-              forceHover=error.forceHover}}
+              title=firstError.title
+              errorLineNumber=firstError.line
+              forceHover=firstError.forceHover}}
 
-              {{component (concat "error-bodies/" error.component) source=source error=error}}
+              {{component (concat "error-bodies/" firstError.component) source=source error=firstError}}
           {{/my-md-collapsible}}
-        {{/each}}
-      {{/md-card-collapsible}}
+        {{/md-card-collapsible}}
+      {{/if}}
+      {{#if (gt errors.length 1)}}
+        <div class="divider"></div>
+        {{#md-card-collapsible}}
+          {{#each errors as |error index|}}
+            {{#if (not-eq index 0)}}
+              {{#my-md-collapsible class="hoverable"
+                  mouseOverAction=(action 'highlightCodeLine')
+                  mouseLeaveAction=(action 'removeHighlightCodeLine')
+                  title=error.title
+                  errorLineNumber=error.line
+                  forceHover=error.forceHover}}
+
+                  {{component (concat "error-bodies/" error.component) source=source error=error}}
+              {{/my-md-collapsible}}
+            {{/if}}
+          {{/each}}
+        {{/md-card-collapsible}}
+      {{/if}}
     {{/if}}
   </div>
 </div>

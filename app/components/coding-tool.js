@@ -141,6 +141,11 @@ export default Ember.Component.extend({
     }
   },
 
+  firstError: computed('errors.[]', function() {
+    let errors = get(this, 'errors');
+    return isPresent(errors) ? errors[0] : null;
+  }),
+
   determineType(errorTitle) {
     let errorTypeObject = ERROR_REGEX.find((errorType) => {
       return errorTitle.match(get(errorType, 'regex'));
