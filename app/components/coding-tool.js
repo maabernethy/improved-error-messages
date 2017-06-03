@@ -32,43 +32,44 @@ const ERROR_REGEX = [
 
 const ERROR_INFO = {
   returnType(shortError) {
-    let title = 'control reaches end of non-void function';
+    let title = 'Missing return statement';
     let component = 'return-type-error';
     return { title, component };
   },
 
   undeclared(shortError, source) {
-    let title = "'small' undeclared (first use in this function)";
+    let shortErrorArray = shortError.split("'");
+    let title = `Missing type when using '${shortErrorArray[0]}' for the first time`;
     let component = 'undeclared-error';
     return { title, component };
   },
 
   endOfInput(shortError) {
-    let title = 'expected declaration or statement at end of input';
+    let title = 'Missing or extra “;” “}” “)” on or anywhere above this line';
     let component = 'end-of-input-error';
     return { title, component };
   },
 
   expected(shortError) {
-    let title = "expected expression before '=' token";
+    let title = shortError.split("error:").join();
     let component = 'expected-error';
     return { title, component };
   },
 
   werror(shortError) {
-    let title = "return type defaults to 'int'";
+    let title = 'Missing type for your function or function parameters';
     let component = 'werror-error';
     return { title, component };
   },
 
   expectedSemicolon(shortError, source, lineNumber) {
-    let title = "expected ';' before '}’ token";
+    let title = 'Missing a semicolon to end the line';
     let component = 'expected-semicolon-error';
     return { title, component };
   },
 
   expectedIdentifier(shortError) {
-    let title = "expected identifier or '(' before ‘return'";
+    let title = "Missing or extra ';' '}' ')' somewhere on or above this line";
     let component = 'expected-identifier-error';
     return { title, component };
   },
@@ -80,7 +81,7 @@ const ERROR_INFO = {
   },
 
   other(shortError) {
-    let title = shortError;
+    let title = shortError.split("error:").join();
     let component = 'other-error';
     return { title, component };
   }
