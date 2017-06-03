@@ -127,6 +127,7 @@ export default Ember.Component.extend({
       set(this, 'showMessage', false);
       set(this, 'showNoCompilerErrorsMessage', true);
     } else {
+      result = result === 'COMPILE_ERROR' ? 'COMPILATION ERRORS': result;
       set(this, 'result', result);
       set(this, 'errorMessage', errorMessage);
       set(this, 'stdout', stdout);
