@@ -26,7 +26,7 @@ const ERROR_REGEX = [
   { type: EXPECTED_IDENTIFIER,  regex: /expected identifier or '[(]'/g },
   { type: EXPECTED_SEMICOLON, regex: /expected '(;)'/g },
   { type: EXPECTED, regex: /\bexpected\b/g },
-  { type: WERROR, regex: /\bWerror\b/g },
+  { type: WERROR, regex: /\[(-Werror)\]/g },
   { type: ALREADY_DECLARED, regex: /\bnote\b/g }
 ]
 
