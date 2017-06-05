@@ -18,7 +18,7 @@ export default Ember.Component.extend({
   generateVoidReturnCode() {
     let source = get(this, 'source');
     let sourceArray = source.split("\n");
-    let type = sourceArray[0].split(" ")[0];
+    let type = sourceArray[0].trim().split(" ")[0];
 
     if (get(this, 'types').includes(type)) {
       let commentLine = '    // ...';
@@ -38,7 +38,7 @@ export default Ember.Component.extend({
     let source = get(this, 'source');
     let lineNumber = get(this, 'error.line');
     let sourceArray = source.split("\n");
-    let type = sourceArray[0].split(" ")[0];
+    let type = sourceArray[0].trim().split(" ")[0];
 
     if (get(this, 'types').includes(type)) {
       if (type === 'void') {

@@ -1,15 +1,21 @@
-<p>{{firstMessage}}</p>
+<div>{{firstMessage}}</div>
+
+<p class="reduce-padding">
 {{my-ivy-codemirror
   value=typeCode
   codeSnippet=true
   options=(hash lineWrapping=true
                 readOnly=true)}}
-<p> OR </p>
+</p>
 
+<div class="or"> OR </div>
+
+<p class="reduce-padding">
 {{my-ivy-codemirror
   value=voidCode
   codeSnippet=true
   options=(hash lineWrapping=true
                 readOnly=true)}}
+</p>
 
-<p>{{{secondMessage}}}</p>
+<div>{{{secondMessage}}}</div>

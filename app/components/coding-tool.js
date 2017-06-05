@@ -39,7 +39,7 @@ const ERROR_INFO = {
 
   undeclared(shortError, source) {
     let shortErrorArray = shortError.split("'");
-    let title = `Missing type when using '${shortErrorArray[0]}' for the first time`;
+    let title = `Missing type when using '${shortErrorArray[1]}' for the first time`;
     let component = 'undeclared-error';
     return { title, component };
   },
@@ -51,7 +51,7 @@ const ERROR_INFO = {
   },
 
   expected(shortError) {
-    let title = shortError.split("error:").join();
+    let title = shortError.split("error:")[1].trim();
     let component = 'expected-error';
     return { title, component };
   },
@@ -65,7 +65,7 @@ const ERROR_INFO = {
   expectedSemicolon(shortError, source, lineNumber) {
     let title = 'Missing a semicolon to end the line';
     let component = 'expected-semicolon-error';
-    return { title, component };
+    return { title, component, lineNumber: lineNumber - 1 };
   },
 
   expectedIdentifier(shortError) {
@@ -81,7 +81,7 @@ const ERROR_INFO = {
   },
 
   other(shortError) {
-    let title = shortError.split("error:").join();
+    let title = shortError.split("error:")[1].trim();
     let component = 'other-error';
     return { title, component };
   }
@@ -157,19 +157,20 @@ export default Ember.Component.extend({
   },
 
   generateErrorObject(errorString) {
-    let numRegex = /.:([0-9]*):./g;
     let myRegex = /error:+([\s\S]*?)(?=\n)/g;
+    let numRegex = /.:([0-9]*):./g;
     let lineNumber = parseInt(errorString.match(numRegex)[0].split(":")[1]);
     let shortError = errorString.match(myRegex)[0];
     let source = get(this, 'source');
 
     let type = this.determineType(shortError);
     let getErrorInfo = ERROR_INFO[camelize(type)];
-    let { title: title, component: component } = getErrorInfo(shortError, source, lineNumber);
+    let { title: title, component: component, lineNumber: num } = getErrorInfo(shortError, source, lineNumber);
 
+    let line = isPresent(num) ? num : lineNumber;
     let forceHoverErrorLines = get(this, 'forceHoverErrorLines');
     return {
-      line: lineNumber,
+      line: line,
       component: component,
       entireError: errorString,
       title: title,

@@ -1,16 +1,20 @@
 {{#if showCorrectCode}}
-  <p>Line {{error.line}} should look like this:</p>
+  <div>Line {{error.line}} should look like this:</div>
+  <p class="reduce-padding">
   {{my-ivy-codemirror
     value=correctCode
     codeSnippet=true
     options=(hash lineWrapping=true
                   readOnly=true)}}
+   </p>
 {{else}}
-  <p>Line {{error.line}} needs a type before the variable name because this is the first time you are using it in this function:</p>
+  <div>Line {{error.line}} needs a type before the variable name because this is the first time you are using it in this function:</div>
+  <p class="reduce-padding">
   {{my-ivy-codemirror
     value=exampleLine
     codeSnippet=true
     options=(hash lineWrapping=true
                   readOnly=true)}}
-  <p>Replace TYPE with <b>int</b>, <b>float</b>, <b>double</b>, or <b>char</b></p>
+  </p>
+  <div>Replace TYPE with <b>int</b>, <b>float</b>, <b>double</b>, or <b>char</b></div>
 {{/if}}

@@ -1,18 +1,20 @@
 {{#if showCorrectCode}}
-  <p>Line {{lineNumber}} must end with a semicolon:</p>
+  <div>Line {{lineNumber}} must end with a semicolon:</div>
+  <p class="reduce-padding">
   {{my-ivy-codemirror
     value=correctCode
     codeSnippet=true
     options=(hash lineWrapping=true
                   readOnly=true
                   autorefresh=true)}}
+   </p>
 {{else}}
   <p>
   If you aren’t missing a semicolon on line {{lineNumber}},
   then this error often occurs as a result of another
   syntax error.
   </p>
-  <p><b>TIP:</b> Do you have any unbalanced “)” or “}”?</p>
-  <p><b>TIP:</b> Do you have an extra semicolon somewhere?</p>
-  <p><b>TIP:</b> Are all of your conditions surrounded by ()?</p>
+  <div><b>TIP:</b> Do you have any unbalanced “)” or “}”?</div>
+  <div><b>TIP:</b> Do you have an extra semicolon somewhere?</div>
+  <div><b>TIP:</b> Are all of your conditions surrounded by ()?</div>
 {{/if}}
