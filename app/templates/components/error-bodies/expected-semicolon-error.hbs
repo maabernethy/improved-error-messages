@@ -1,5 +1,5 @@
 {{#if showCorrectCode}}
-  <div>Line {{lineNumber}} must end with a semicolon:</div>
+  <div>Line {{error.line}} must end with a semicolon:</div>
   <p class="reduce-padding">
   {{my-ivy-codemirror
     value=correctCode
@@ -10,7 +10,7 @@
    </p>
 {{else}}
   <p>
-  If you aren’t missing a semicolon on line {{lineNumber}},
+  If you aren’t missing a semicolon on line {{error.line}},
   then this error often occurs as a result of another
   syntax error.
   </p>
