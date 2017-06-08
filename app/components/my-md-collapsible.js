@@ -2,7 +2,7 @@ import Ember from 'ember';
 import MdCollapsibleComponent from 'ember-cli-materialize/components/md-collapsible';
 import layout from '../templates/components/my-md-collapsible';
 
-let { set, isPresent } = Ember;
+let { isPresent } = Ember;
 
 export default MdCollapsibleComponent.extend({
   codeMirror: Ember.inject.service(),
@@ -28,7 +28,7 @@ export default MdCollapsibleComponent.extend({
       return "force-hover";
     } else {
       return "";
-    };
+    }
   }),
 
   layout,

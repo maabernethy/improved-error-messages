@@ -37,11 +37,11 @@ export default Ember.Component.extend({
 
     let paramsWithType = paramsArray.filter((param) => {
       let temp = param.trim().split(" ");
-      if (temp.length == 2) {
+      if (temp.length === 2) {
         return get(this, 'types').includes(temp[0]);
       } else {
         return false;
-      };
+      }
     });
 
     return isEmpty(paramsWithType);
@@ -61,7 +61,6 @@ export default Ember.Component.extend({
     let firstLineFunction = functionTypeCode[0];
     let firstLineParam = this.generateParamTypeCode().split("\n")[0];
 
-    debugger;
     let firstLineArray = [firstLineFunction.split("(")[0], firstLineParam.split("(")[1]];
     let code = [firstLineArray.join("("), functionTypeCode[1], functionTypeCode[2]].join("\n");
     set(this, 'allCode', code);

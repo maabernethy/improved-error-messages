@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-let { get, set, isEmpty } = Ember;
+let { get, set } = Ember;
 
 export default Ember.Component.extend({
   didReceiveAttrs(...args) {

@@ -28,23 +28,23 @@ const ERROR_REGEX = [
   { type: EXPECTED, regex: /\bexpected\b/g },
   { type: WERROR, regex: /\[(-Werror)\]/g },
   { type: ALREADY_DECLARED, regex: /\bnote\b/g }
-]
+];
 
 const ERROR_INFO = {
-  returnType(shortError) {
+  returnType() {
     let title = 'Missing return statement';
     let component = 'return-type-error';
     return { title, component };
   },
 
-  undeclared(shortError, source) {
+  undeclared(shortError) {
     let shortErrorArray = shortError.split("'");
     let title = `Missing type when using '${shortErrorArray[1]}' for the first time`;
     let component = 'undeclared-error';
     return { title, component };
   },
 
-  endOfInput(shortError) {
+  endOfInput() {
     let title = 'Missing or extra “;” “}” “)” on or anywhere above this line';
     let component = 'end-of-input-error';
     return { title, component };
@@ -56,7 +56,7 @@ const ERROR_INFO = {
     return { title, component };
   },
 
-  werror(shortError) {
+  werror() {
     let title = 'Missing type for your function or function parameters';
     let component = 'werror-error';
     return { title, component };
@@ -68,13 +68,13 @@ const ERROR_INFO = {
     return { title, component, lineNumber: lineNumber - 1 };
   },
 
-  expectedIdentifier(shortError) {
+  expectedIdentifier() {
     let title = "Missing or extra ';' '}' ')' somewhere on or above this line";
     let component = 'expected-identifier-error';
     return { title, component };
   },
 
-  alreadyDeclared(shortError) {
+  alreadyDeclared() {
     let title = "note: previous definition of 'array' was here";
     let component = 'already-declared-error';
     return { title, component };
@@ -85,7 +85,7 @@ const ERROR_INFO = {
     let component = 'other-error';
     return { title, component };
   }
-}
+};
 
 export default Ember.Component.extend({
   ajax: Ember.inject.service(),
@@ -103,6 +103,12 @@ export default Ember.Component.extend({
   showMessage: false,
 
   errors: [],
+
+  firstError: computed('errors.[]', function() {
+    let errors = get(this, 'errors');
+    return isPresent(errors) ? errors[0] : null;
+  }),
+
 
   setHoverable() {
     Ember.run.schedule('afterRender', () => {
@@ -143,11 +149,6 @@ export default Ember.Component.extend({
     }
   },
 
-  firstError: computed('errors.[]', function() {
-    let errors = get(this, 'errors');
-    return isPresent(errors) ? errors[0] : null;
-  }),
-
   determineType(errorTitle) {
     let errorTypeObject = ERROR_REGEX.find((errorType) => {
       return errorTitle.match(get(errorType, 'regex'));
@@ -168,7 +169,6 @@ export default Ember.Component.extend({
     let { title: title, component: component, lineNumber: num } = getErrorInfo(shortError, source, lineNumber);
 
     let line = isPresent(num) ? num : lineNumber;
-    let forceHoverErrorLines = get(this, 'forceHoverErrorLines');
     return {
       line: line,
       component: component,
@@ -215,8 +215,6 @@ export default Ember.Component.extend({
 
     sendRequest() {
       let source = get(this, 'source');
-      let language = get(this, 'language');
-      let filename = get(this, 'filename');
       set(this, 'showMessage', false);
 
       return this.get('ajax').compilerRequest(source)

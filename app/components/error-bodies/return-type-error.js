@@ -36,7 +36,6 @@ export default Ember.Component.extend({
 
   generateReturnTypeCode() {
     let source = get(this, 'source');
-    let lineNumber = get(this, 'error.line');
     let sourceArray = source.split("\n");
     let type = sourceArray[0].trim().split(" ")[0];
 

@@ -31,7 +31,7 @@ export default Ember.Component.extend({
   },
 
   processReturnResult(response, updatedLine) {
-    let { result: result, errorMessage: errorMessage, stdout: stdout, stderr: stderr } = this.get('ajax').processOutcome(response);
+    let { errorMessage: errorMessage } = this.get('ajax').processOutcome(response);
     if (this.get('ajax').lessNumberOfErrors(errorMessage)) {
       set(this, 'showCorrectCode', true);
       set(this, 'correctCode', updatedLine);

@@ -15,9 +15,7 @@ export default Ember.Component.extend({
 
   testUpdatedCode() {
     let source = get(this, 'source');
-    let lineNumber = get(this, 'error.line');
     let sourceArray = source.split("\n");
-    let type = sourceArray[0].split(" ")[0];
     sourceArray.push('}');
     let updatedSource = sourceArray.join("\n");
     let sourceToShowArray = [sourceArray[0], "    // your code", "}"];
@@ -31,7 +29,7 @@ export default Ember.Component.extend({
   },
 
   processReturnResult(response, sourceToShow) {
-    let { result: result, errorMessage: errorMessage, stdout: stdout, stderr: stderr } = this.get('ajax').processOutcome(response);
+    let { errorMessage: errorMessage } = this.get('ajax').processOutcome(response);
     if (this.get('ajax').lessNumberOfErrors(errorMessage)) {
       set(this, 'showCorrectCode', true);
       set(this, 'correctCode', sourceToShow);

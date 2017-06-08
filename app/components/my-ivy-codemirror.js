@@ -32,6 +32,7 @@ export default IvyCodemirrorComponent.extend({
           this.highlightError(errorLines);
         }
       };
+
     }
   },
 
@@ -48,6 +49,7 @@ export default IvyCodemirrorComponent.extend({
         let lineNum = parseInt(lineNumString);
         let lineText = codeMirror.lineInfo(lineNum - 1).text;
         codeMirror.markText({ line: lineNum - 1, ch: 0 }, { line: lineNum - 1, ch: lineText.length }, { className: "hover-highlight" });
+
       } else if (isPresent(errorLines)) {
         let markers = codeMirror.getAllMarks();
         markers.forEach((marker) =>  marker.clear());
